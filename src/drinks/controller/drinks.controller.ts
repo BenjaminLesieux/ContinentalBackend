@@ -31,36 +31,16 @@ export class DrinksController {
     return this.service.getDrinks();
   }
 
-  @Get('find/:id')
+  @Get(':id')
   getDrink(@Param('id') id: Types.ObjectId): Promise<Drink> {
     return this.service.getDrink(id);
   }
 
-  @Patch('update/:id')
+  @Patch(':id')
   updateDrink(
     @Param('id') id: Types.ObjectId,
     @Body() data: Partial<DrinksDto>,
   ) {
     return this.service.updateDrink(id, data);
-  }
-
-  @Get('beers')
-  getBeers() {
-    return this.service.findByType('beer');
-  }
-
-  @Get('cocktails')
-  getCocktails() {
-    return this.service.findByType('cocktail');
-  }
-
-  @Get('mocktails')
-  getMocktails() {
-    return this.service.findByType('mocktail');
-  }
-
-  @Get('softs')
-  getSofts() {
-    return this.service.findByType('soft');
   }
 }
