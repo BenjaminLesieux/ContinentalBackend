@@ -1,1 +1,1 @@
-export type DrinkType = 'beer' | 'cocktail' | 'mocktail' | 'soft';
+export type DrinkType = 'beer' | 'cocktail' | 'mocktail' | 'soft' | 'wine';

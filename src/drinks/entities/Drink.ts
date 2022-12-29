@@ -15,6 +15,9 @@ export class Drink {
   @Prop()
   description: string;
 
+  @Prop({ type: String, required: true, default: true })
+  inMenu: boolean;
+
   @Prop({ type: String, required: true })
   type: DrinkType;
 }

@@ -6,12 +6,16 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
-import { DrinksDto } from '../dto/DrinksDto';
-import { Drink } from '../entities/Drink';
-import { DrinksService } from '../service/drinks.service';
+import { DrinksDto } from './dto/DrinksDto';
+import { Drink } from './entities/Drink';
+import { DrinksService } from './drinks.service';
 import { Types } from 'mongoose';
+import { DrinkType } from './drinks.types';
+import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('drinks')
 @Controller('drinks')
 export class DrinksController {
   constructor(private service: DrinksService) {}
@@ -27,40 +31,29 @@ export class DrinksController {
   }
 
   @Get()
-  getDrinks(): Promise<Drink[]> {
+  @ApiQuery({
+    name: 'type',
+    required: false,
+  })
+  getDrinks(@Query('type') type?: DrinkType): Promise<Drink[]> {
+    if (type) return this.service.findByType(type);
     return this.service.getDrinks();
   }
 
-  @Get('find/:id')
+  @Get(':id')
+  @ApiParam({
+    name: 'id',
+    type: String,
+  })
   getDrink(@Param('id') id: Types.ObjectId): Promise<Drink> {
     return this.service.getDrink(id);
   }
 
-  @Patch('update/:id')
+  @Patch(':id')
   updateDrink(
     @Param('id') id: Types.ObjectId,
     @Body() data: Partial<DrinksDto>,
   ) {
     return this.service.updateDrink(id, data);
-  }
-
-  @Get('beers')
-  getBeers() {
-    return this.service.findByType('beer');
-  }
-
-  @Get('cocktails')
-  getCocktails() {
-    return this.service.findByType('cocktail');
-  }
-
-  @Get('mocktails')
-  getMocktails() {
-    return this.service.findByType('mocktail');
-  }
-
-  @Get('softs')
-  getSofts() {
-    return this.service.findByType('soft');
   }
 }
