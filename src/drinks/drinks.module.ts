@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Drink, DrinkSchema } from './entities/Drink';
-import { DrinksController } from './controller/drinks.controller';
-import { DrinksService } from './service/drinks.service';
+import { DrinksController } from './drinks.controller';
+import { DrinksService } from './drinks.service';
 
 @Module({
   imports: [
@@ -10,5 +10,6 @@ import { DrinksService } from './service/drinks.service';
   ],
   controllers: [DrinksController],
   providers: [DrinksService],
+  exports: [DrinksService],
 })
 export class DrinksModule {}

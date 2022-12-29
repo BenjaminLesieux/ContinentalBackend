@@ -8,11 +8,11 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { DrinksDto } from '../dto/DrinksDto';
-import { Drink } from '../entities/Drink';
-import { DrinksService } from '../service/drinks.service';
+import { DrinksDto } from './dto/DrinksDto';
+import { Drink } from './entities/Drink';
+import { DrinksService } from './drinks.service';
 import { Types } from 'mongoose';
-import { DrinkType } from '../drinks.types';
+import { DrinkType } from './drinks.types';
 import { ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('drinks')
